@@ -41,16 +41,14 @@ console.log(`Posição escolhida no grid: ${posicaoEscolhida}`);
 
 function coordenadasLetras () {
     nomeEscolhido.forEach((letra, indice) => {
-        console.log(celulas[indice * 12 + posicaoEscolhida].innerHTML = letra);
+        celulas[indice * 12 + posicaoEscolhida].innerHTML = letra;
         celulasCertas = indice * 12 + posicaoEscolhida; // Consegui as coordenadas que queria
         //console.log(celulasCertas);
-        
     })
-    
 }
 
 celulasCertas = coordenadasLetras();
-console.log(celulasCertas);
+
 /*
     PRÓXIMOS PASSOS: 
     - Verificar se há espaço pra inserir a palavra
