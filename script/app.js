@@ -23,6 +23,8 @@ function escolherNome () {
 }
 
 console.log(escolherNome());
+nomeEscolhido = escolherNome();
+console.log(nomeEscolhido.length)
 
 function verticalHorizontal () {
     n = Math.floor(Math.random () * orientacao.length);
@@ -38,10 +40,8 @@ function escolherPosicao () {
 
 console.log(escolherPosicao());
 
-function inserirNome(nome) {
-    nome = escolherNome();
-    celulas.forEach((celula, index) => {
-        index = escolherPosicao();
-        celula[index].innerHTML = nome[0]
-    })
+function inserirNome() {
+    celulas[escolherPosicao()].innerHTML = nomeEscolhido[0];
 }
+
+inserirNome();
