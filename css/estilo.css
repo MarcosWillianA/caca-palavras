@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-width: 320px;
+    max-width: 640px;
+    margin: auto;
+}
+
+#container {
+    width: 100%;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid red;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(12, 40px);
+    grid-template-rows: repeat(12, 40px);
+}
+
+.celulas {
+    border: 1px solid black;
+    text-align: center;
+    text-transform: uppercase;
+}
