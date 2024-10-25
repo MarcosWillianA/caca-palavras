@@ -1,5 +1,5 @@
 const container = document.querySelector('#container');
-const nomes = ['marcos', 'rosângela', 'alcilene', 'suzana', 'ângela', 'pedro', 'joão', 'érica', 'tomás', 'fernando', 'bruna', 'viviane', 'débora'];
+const nomes = ['marcos', 'rosângela', 'alcilene', 'suzana', 'ângela'];
 const orientacao = ['vertical', 'horizontal'];
 
 function criarGrid () {
@@ -92,6 +92,11 @@ function coordenadasLetras() {
                 const celulasCertas = indice + 1 + posicaoEscolhida;
                 console.log(celulasCertas);
 
+                if (celulasCertas % 12 === 0) {
+                    escolherPosicao();
+                    return;
+                }
+
                 celulas[celulasCertas].innerHTML = letra;
                 console.log('Letra acrescentada');
             }
@@ -111,4 +116,10 @@ celulasCertas = coordenadasLetras();
     - Ideia = primeiro a verificação: a lógica:
         celulas[indice * 12 + posicaoEscolhida].innerHTML = letra;
         pode ser colocada numa outra função feita apenas pra colocar as letras
+    - OUTRA IDEIA: COLOCAR CELULAS CERTAS NUM ARRAY E ENTÃO FAZER O CHECK DE EVERY. 
+      SE O CHECK FOR FALSO, ENTÃO ELE IRÁ SORTEAR OUTRA POSIÇÃO 
+
+    - OUTRA IDEIA: SE AS COORDENADAS DE CADA PALAVRA FICAREM ARMAZENADAS NUM ARRAY, 
+    ENTÃO É POSSÍVEL VERIFICAR SE ELAS TEM A MESMA LETRA 
+    E então poderem ficar uma por cima da outra
 */
