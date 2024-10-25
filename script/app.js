@@ -92,7 +92,8 @@ function coordenadasLetras() {
                 const celulasCertas = indice + 1 + posicaoEscolhida;
                 console.log(celulasCertas);
 
-                if
+                celulas[celulasCertas].innerHTML = letra;
+                console.log('Letra acrescentada');
             }
     }
     
