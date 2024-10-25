@@ -44,6 +44,15 @@ function espacoDisponivel () {
     console.log(`Número de letras: ${nomeEscolhido.length} e a orientação é ${orientacaoLetras}`);
     switch (orientacaoLetras) {
         case 'vertical':
+            if (nomeEscolhido.forEach((letra, indice) => {
+                indice * 12 + posicaoEscolhida <= 143
+            })) {
+                return true;
+            } else {
+                return false;
+            }
+
+        case 'horizontal':
             
     }
 }
