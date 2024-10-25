@@ -29,7 +29,8 @@ function verticalHorizontal () {
     return orientacao[n];
 }
 
-console.log(verticalHorizontal());
+orientacaoLetras = verticalHorizontal();
+console.log(orientacaoLetras);
 
 function escolherPosicao () {
     let n = Math.floor(Math.random () * celulas.length);
@@ -38,6 +39,16 @@ function escolherPosicao () {
 
 posicaoEscolhida = escolherPosicao();
 console.log(`Posição escolhida no grid: ${posicaoEscolhida}`);
+
+function espacoDisponivel () {
+    console.log(`Número de letras: ${nomeEscolhido.length} e a orientação é ${orientacaoLetras}`);
+    switch (orientacaoLetras) {
+        case 'vertical':
+            
+    }
+}
+
+espacoDisponivel();
 
 function coordenadasLetras () {
     nomeEscolhido.forEach((letra, indice) => {
