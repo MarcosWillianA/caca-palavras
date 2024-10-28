@@ -1,9 +1,13 @@
 const container = document.querySelector('#container');
-const nomes = ['marcos', 'rosângela', 'alcilene', 'suzana', 'ângela', 'pedro', 'joão', 'érica', 'tomás', 'fernando', 'bruna', 'viviane', 'débora'];
-const orientacao = ['vertical', 'horizontal'];
+const nomes = ['marcos', 'rosângela', 'alcilene', 'suzana', 'ângela', 'érica', 'joão', 'maria', 'pedro', 'ana', 'carlos', 'luana', 'fernando', 'carla', 'rafael', 'tatiane', 'vitor', 'juliana', 'gustavo', 'luiz', 'isabel', 'renan', 'karla', 'davi', 'patrícia', 'josefina', 'matheus', 'camila', 'andre', 'vanessa', 'lúcio'];
+const animais = ['capivara', 'gato', 'cachorro', 'elefante', 'tigre', 'lobo', 'pato', 'raposa', 'urso', 'sapo', 'morcego', 'peixe', 'rato', 'tubarão', 'jacaré', 'macaco', 'gaivota', 'foca', 'caranguejo', 'pavão', 'puma', 'falcão', 'grilo'];
 
-function criarGrid () {
-    for (i = 0; i < 144; i++) {
+const paises = ['Brasil', 'Chile', 'Cuba', 'Uruguai', 'França', 'Suécia', 'Rússia', 'Malásia', 'Egito', 'Bolívia', 'Austria', 'Panamá', 'Jordânia', 'Sérvia', 'Nepal', 'Gana', 'Zâmbia', 'Iémen', 'Laos', 'Tanzânia', 'Mali', 'Honduras', 'Omã', 'Catar', 'Jamaica', 'Cazaquistão', 'Líbano', 'Sudão', 'Lituânia', 'Zimbábue', 'Líbia'];
+
+const orientacoes = ['vertical', 'horizontal', 'diagonal'];
+
+function criarGrid() {
+    for (let i = 0; i < 144; i++) {
         const celulas = document.createElement('div');
         container.appendChild(celulas);
         celulas.classList.add('celulas');
@@ -13,84 +17,93 @@ function criarGrid () {
 criarGrid();
 const celulas = document.querySelectorAll('.celulas');
 
-// Palavras 
+// Função para escolher 4 nomes únicos
+function escolherNomes() {
+    const nomesEscolhidos = [];
+    const nomesDisponiveis = [...nomes];
 
-function escolherNome () {
-    let n = Math.floor(Math.random () * nomes.length);
-    arrayDeLetras = nomes[n].split('');
-    return arrayDeLetras;
-}
-
-nomeEscolhido = escolherNome();
-console.log(nomeEscolhido);
-
-function verticalHorizontal () {
-    n = Math.floor(Math.random () * orientacao.length);
-    return orientacao[n];
-}
-
-orientacaoLetras = verticalHorizontal();
-console.log(orientacaoLetras);
-
-function escolherPosicao () {
-    let n = Math.floor(Math.random () * celulas.length);
-    return n;
-}
-
-posicaoEscolhida = escolherPosicao();
-console.log(`Posição escolhida no grid: ${posicaoEscolhida}`);
-
-/* function espacoDisponivel () {
-    console.log(`Número de letras: ${nomeEscolhido.length} e a orientação é ${orientacaoLetras}`);
-    switch (orientacaoLetras) {
-        case 'vertical':
-            if (nomeEscolhido.forEach((letra, indice) => {
-                indice * 12 + posicaoEscolhida <= 143
-            })) {
-                return true;
-            } else {
-                return false;
-            }
-
-        case 'horizontal':
-            if (nomeEscolhido.forEach((letra, indice) => {
-                indice + 1 + (posicaoEscolhida + 1) % 12 === 0   
-            })) {
-                return true;
-            } else {
-                return false;
-            }
+    while (nomesEscolhidos.length < 4 && nomesDisponiveis.length > 0) {
+        let n = Math.floor(Math.random() * nomesDisponiveis.length);
+        nomesEscolhidos.push(nomesDisponiveis[n]);
+        nomesDisponiveis.splice(n, 1);
     }
-} 
 
-espacoDisponivel();
-espacoLivre = espacoDisponivel();
-console.log(espacoLivre);
-*/
-
-function coordenadasLetras () {
-    nomeEscolhido.forEach((letra, indice) => {
-        celulasCertas = indice * 12 + posicaoEscolhida; // Consegui as coordenadas que queria
-        console.log(celulasCertas);
-        if (celulasCertas > 143) {
-            escolherPosicao();
-            return;
-        } 
-
-        celulas[indice * 12 + posicaoEscolhida].innerHTML = letra;
-        console.log('Letra acrescentada!');
-    })
+    return nomesEscolhidos.map(nome => nome.split('')); // Converte cada nome em um array de letras
 }
 
-celulasCertas = coordenadasLetras();
+let nomesEscolhidos = escolherNomes();
+console.log('Nomes escolhidos:', nomesEscolhidos);
 
+function verticalHorizontalDiagonal() {
+    return orientacoes[Math.floor(Math.random() * orientacoes.length)];
+}
 
-/*
-    PRÓXIMOS PASSOS: 
-    - Verificar se há espaço pra inserir a palavra
-    - Caso não haja, escolher outra orientação
-    - De alguma forma, colocar cada letra no array de posições correto
-    - Ideia = primeiro a verificação: a lógica:
-        celulas[indice * 12 + posicaoEscolhida].innerHTML = letra;
-        pode ser colocada numa outra função feita apenas pra colocar as letras
-*/
+function escolherPosicao() {
+    return Math.floor(Math.random() * celulas.length);
+}
+
+function verificarConflito(coordenadas, nome) {
+    for (let i = 0; i < coordenadas.length; i++) {
+        const coordenada = coordenadas[i];
+        const letraAtual = nome[i];
+
+        if (celulas[coordenada].innerHTML !== '' && celulas[coordenada].innerHTML !== letraAtual) {
+            return false; // Há conflito
+        }
+    }
+    return true; // Sem conflito
+}
+
+function inserirPalavra(nome) {
+    let coordenadas = [];
+    let posicaoEscolhida;
+    let orientacaoLetras;
+    let dentroDoGrid = false;
+
+    while (!dentroDoGrid) {
+        orientacaoLetras = verticalHorizontalDiagonal();
+        posicaoEscolhida = escolherPosicao();
+        coordenadas = []; // Reseta as coordenadas para cada nova tentativa
+
+        switch (orientacaoLetras) {
+            case 'vertical':
+                for (let letraIndice = 0; letraIndice < nome.length; letraIndice++) {
+                    const celulasCertas = letraIndice * 12 + posicaoEscolhida;
+                    coordenadas.push(celulasCertas);
+                }
+                if (coordenadas.every(coordenada => coordenada <= 143) && verificarConflito(coordenadas, nome)) {
+                    dentroDoGrid = true;
+                }
+                break;
+
+            case 'horizontal':
+                for (let letraIndice = 0; letraIndice < nome.length; letraIndice++) {
+                    const celulasCertas = letraIndice + posicaoEscolhida;
+                    coordenadas.push(celulasCertas);
+                }
+                if (coordenadas.every(coordenada => coordenada < 144 && coordenada % 12 !== 0) && verificarConflito(coordenadas, nome)) {
+                    dentroDoGrid = true;
+                }
+                break;
+
+            case 'diagonal':
+                for (let letraIndice = 0; letraIndice < nome.length; letraIndice++) {
+                    const celulasCertas = letraIndice * 13 + posicaoEscolhida;
+                    coordenadas.push(celulasCertas);
+                }
+                if (coordenadas.every(coordenada => coordenada <= 143 && coordenada % 12 !== 0) && verificarConflito(coordenadas, nome)) {
+                    dentroDoGrid = true;
+                }
+                break;
+        }
+    }
+
+    coordenadas.forEach((coordenada, letraIndice) => {
+        celulas[coordenada].innerHTML = nome[letraIndice]; // Adiciona a letra na célula
+    });
+}
+
+// Para cada nome escolhido, insere no grid
+nomesEscolhidos.forEach(nome => {
+    inserirPalavra(nome);
+});

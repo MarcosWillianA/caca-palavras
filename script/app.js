@@ -1,6 +1,15 @@
 const container = document.querySelector('#container');
 const nomes = ['marcos', 'rosângela', 'alcilene', 'suzana', 'ângela', 'érica', 'joão', 'maria', 'pedro', 'ana', 'carlos', 'luana', 'fernando', 'carla', 'rafael', 'tatiane', 'vitor', 'juliana', 'gustavo', 'luiz', 'isabel', 'renan', 'karla', 'davi', 'patrícia', 'josefina', 'matheus', 'camila', 'andre', 'vanessa', 'lúcio'];
+const animais = ['capivara', 'gato', 'cachorro', 'elefante', 'tigre', 'lobo', 'pato', 'raposa', 'urso', 'sapo', 'morcego', 'peixe', 'rato', 'tubarão', 'jacaré', 'macaco', 'gaivota', 'foca', 'caranguejo', 'pavão', 'puma', 'falcão', 'grilo'];
+const paises = ['brasil', 'argelia', 'chile', 'canada', 'méxico', 'frança', 'japao', 'china', 'india', 'austria', 'nigeria', 'senegal', 'guinea', 'jamaica', 'haiti', 'tonga', 'suecia', 'noruega', 'omã', 'qatar', 'vietnam', 'siria', 'lituania', 'luxemburgo', 'malásia', 'nepal', 'cazaquistao', 'estonia', 'gana', 'zambia', 'tanzania'];
+const objetos = ['mesa', 'cadeira', 'carro', 'livro', 'caneta', 'relógio', 'teclado', 'mouse', 'pente', 'banco', 'estojo', 'tábua', 'caixa', 'quadro', 'faca', 'lanterna', 'prato', 'copo', 'garrafa', 'tapete', 'martelo'];
+const partesCorpo = ['cabeça', 'braço', 'perna', 'mão', 'pé', 'olho', 'orelha', 'nariz', 'boca', 'coração', 'fígado', 'rim', 'dente', 'pulmão', 'joelho', 'pescoço', 'cotovelo', 'ombro', 'antebraço', 'barriga'];
+const comidas = ['pizza', 'sushi', 'azeite', 'frango', 'arroz', 'salada', 'pudim', 'bolo', 'crepe', 'sopa', 'coxinha', 'biscoito', 'torta', 'carne', 'peixe', 'maçã', 'kiwi', 'ovos', 'pastel', 'couve', 'batata', 'pão', 'gelatina', 'morango', 'fruta', 'picadinho', 'tapioca', 'cuscuz', 'quibe', 'panqueca'];
+const marcas = ['nike', 'adidas', 'apple', 'ford', 'bmw', 'samsung', 'gucci', 'sony', 'kfc', 'puma', 'nokia', 'pepsi', 'boticario', 'reebok', 'havan', 'microsoft', 'coca', 'hershey', 'loreal', 'volvo'];
 
+
+
+const tema = [nomes, animais, paises, objetos, partesCorpo, comidas];
 const orientacoes = ['vertical', 'horizontal', 'diagonal'];
 
 function criarGrid() {
@@ -14,10 +23,17 @@ function criarGrid() {
 criarGrid();
 const celulas = document.querySelectorAll('.celulas');
 
+function escolherTema () {
+    return tema[Math.floor(Math.random() * tema.length)];
+}
+
+temaEscolhido = escolherTema();
+console.log(temaEscolhido);
+
 // Função para escolher 4 nomes únicos
 function escolherNomes() {
     const nomesEscolhidos = [];
-    const nomesDisponiveis = [...nomes];
+    const nomesDisponiveis = [...temaEscolhido];
 
     while (nomesEscolhidos.length < 4 && nomesDisponiveis.length > 0) {
         let n = Math.floor(Math.random() * nomesDisponiveis.length);
