@@ -1,5 +1,10 @@
 const container = document.querySelector('#container');
 const nomes = ['marcos', 'rosângela', 'alcilene', 'suzana', 'ângela'];
+const alfabeto = [
+    'a', 'á', 'ã', 'â', 'b', 'c', 'ç', 'd', 'e', 'é', 'ê', 'f', 
+    'g', 'h', 'i', 'í', 'j', 'k', 'l', 'm', 'n', 'o', 'ó', 'ô', 
+    'õ', 'p', 'q', 'r', 's', 't', 'u', 'ú', 'v', 'w', 'x', 'y', 'z'
+  ];
 const orientacao = ['vertical', 'horizontal', 'diagonal'];
 
 function criarGrid () {
@@ -124,6 +129,15 @@ function coordenadasLetras() {
 }
 
 celulasCertas = coordenadasLetras();
+
+function letrasAleatorias() {
+    celulas.forEach(celula => {
+        celula.innerHTML = alfabeto[Math.floor(Math.random() * alfabeto.length)];
+    });
+}
+
+letrasAleatorias();
+
 
 
 /*
