@@ -1,5 +1,6 @@
 const temaDasPalavras = document.querySelector('#tema-das-palavras');
 const container = document.querySelector('#container');
+const reiniciar = document.querySelector('#reiniciar');
 const nomes = ['marcos', 'rosângela', 'alcilene', 'suzana', 'ângela', 'érica', 'joão', 'maria', 'pedro', 'ana', 'carlos', 'luana', 'fernando', 'carla', 'rafael', 'tatiane', 'vitor', 'juliana', 'gustavo', 'luiz', 'isabel', 'renan', 'karla', 'davi', 'patrícia', 'josefina', 'matheus', 'camila', 'andre', 'vanessa', 'lúcio'];
 const animais = ['capivara', 'gato', 'cachorro', 'elefante', 'tigre', 'lobo', 'pato', 'raposa', 'urso', 'sapo', 'morcego', 'peixe', 'rato', 'tubarão', 'jacaré', 'macaco', 'gaivota', 'foca', 'caranguejo', 'pavão', 'puma', 'falcão', 'grilo'];
 const paises = ['brasil', 'argelia', 'chile', 'canada', 'méxico', 'frança', 'japao', 'china', 'índia', 'austria', 'nigeria', 'senegal', 'guinea', 'jamaica', 'haiti', 'tonga', 'suecia', 'noruega', 'omã', 'qatar', 'vietnam', 'siria', 'lituania', 'luxemburgo', 'malásia', 'nepal', 'cazaquistao', 'estonia', 'gana', 'zambia', 'tanzania'];
@@ -33,7 +34,6 @@ function escolherTema () {
 }
 
 let temaEscolhido = escolherTema();
-console.log('Tema escolhido:' ,temaEscolhido);
 
 function anunciarTema() {
     switch (temaEscolhido[0]) {
@@ -79,9 +79,9 @@ function escolherNomes() {
 }
 
 let nomesEscolhidos = escolherNomes();
-console.log('Nomes escolhidos:', nomesEscolhidos);
+console.log(nomesEscolhidos);
 
-const palavrasClasses = {};
+let palavrasClasses = {};
 let palavrasEncontradas = 0;
 const palavrasContabilizadas = new Set();
 
@@ -174,6 +174,34 @@ function preencherCelulasVazias() {
 // Após inserir todas as palavras, chamamos a função para preencher as células vazias
 preencherCelulasVazias();
 
+function reiniciarJogo() {
+    // Limpa o grid
+    celulas.forEach(celula => {
+        celula.innerHTML = '';
+        celula.classList.remove('escolhida', 'encontrada');
+        celula.style.pointerEvents = 'auto';
+    });
+
+    // Reseta variáveis
+    palavrasEncontradas = 0;
+    palavrasContabilizadas.clear();
+    temaEscolhido = escolherTema();
+    nomesEscolhidos = escolherNomes();
+    palavrasClasses = {};
+
+    // Anuncia o novo tema
+    anunciarTema();
+
+    // Insere novas palavras no grid
+    nomesEscolhidos.forEach(nome => {
+        inserirPalavra(nome);
+    });
+
+    // Preenche as células vazias
+    preencherCelulasVazias();
+}
+
+reiniciar.addEventListener('click', reiniciarJogo);
 
 function verificarPalavraEncontrada(nome) {
     const coordenadas = palavrasClasses[nome];
@@ -181,7 +209,8 @@ function verificarPalavraEncontrada(nome) {
 }
 
 celulas.forEach(celula => {
-    celula.addEventListener('click', () => {
+    // Crie uma função para ser reutilizada
+    const handler = () => {
         celula.classList.add('escolhida');
         
         for (const palavra in palavrasClasses) {
@@ -198,14 +227,20 @@ celulas.forEach(celula => {
         setTimeout(() => {
             celula.classList.remove('escolhida');
         }, 12000);
-    })
-})
+    };
 
-console.log(palavrasEncontradas);
-console.log(nomesEscolhidos.length);
+    // Adiciona o evento de clique
+    celula.addEventListener('click', handler);
+});
 
 function verificarVitoria() {
     if (palavrasEncontradas === nomesEscolhidos.length) {
+        const mensagemVitoria = document.querySelector('#mensagem-vitoria');
+        mensagemVitoria.innerHTML = 'Você venceu! Todas as palavras foram encontradas.'
         console.log('VOCÊ GANHOU! TODAS AS PALAVRAS FORAM ENCONTRADAS');
+        celulas.forEach(celula => {
+            celula.style.pointerEvents = 'none';
+        })
     }
 }
+
