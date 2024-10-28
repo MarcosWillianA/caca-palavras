@@ -28,8 +28,7 @@ h3 {
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(12, minmax(20px, 40px));
-    grid-template-rows: repeat(12, minmax(20px, 40px));
-    border: 1px solid red;
+    grid-template-rows: repeat(12, minmax(20px, 40px));    
 }
 
 .celulas {
