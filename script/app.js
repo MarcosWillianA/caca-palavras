@@ -1,5 +1,6 @@
 const container = document.querySelector('#container');
-const nomes = ['marcos', 'rosângela', 'alcilene', 'suzana', 'ângela'];
+const nomes = ['marcos', 'rosângela', 'alcilene', 'suzana', 'ângela', 'érica', 'joão', 'maria', 'pedro', 'ana', 'carlos', 'luana', 'fernando', 'carla', 'rafael', 'tatiane', 'vitor', 'juliana', 'gustavo', 'luiz', 'isabel', 'renan', 'karla', 'davi', 'patrícia', 'josefina', 'matheus', 'camila', 'andre', 'vanessa', 'lúcio'];
+
 const orientacoes = ['vertical', 'horizontal', 'diagonal'];
 
 function criarGrid() {
