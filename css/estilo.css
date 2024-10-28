@@ -17,6 +17,7 @@ h1, h2, h3 {
 }
 
 h3 {
+    display: none;
     color: #1e40af;
     text-transform: uppercase;
     font-size: 1.5em;

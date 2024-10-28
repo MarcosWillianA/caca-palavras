@@ -1,5 +1,6 @@
 const temaDasPalavras = document.querySelector('#tema-das-palavras');
 const container = document.querySelector('#container');
+const mensagemVitoria = document.querySelector('#mensagem-vitoria');
 const reiniciar = document.querySelector('#reiniciar');
 const nomes = ['marcos', 'rosângela', 'alcilene', 'suzana', 'ângela', 'érica', 'joão', 'maria', 'pedro', 'ana', 'carlos', 'luana', 'fernando', 'carla', 'rafael', 'tatiane', 'vitor', 'juliana', 'gustavo', 'luiz', 'isabel', 'renan', 'karla', 'davi', 'patrícia', 'josefina', 'matheus', 'camila', 'andre', 'vanessa', 'lúcio'];
 const animais = ['capivara', 'gato', 'cachorro', 'elefante', 'tigre', 'lobo', 'pato', 'raposa', 'urso', 'sapo', 'morcego', 'peixe', 'rato', 'tubarão', 'jacaré', 'macaco', 'gaivota', 'foca', 'caranguejo', 'pavão', 'puma', 'falcão', 'grilo'];
@@ -174,6 +175,8 @@ preencherCelulasVazias();
 
 function reiniciarJogo() {
     // Limpa o grid
+    mensagemVitoria.style.display = 'none';
+
     celulas.forEach(celula => {
         celula.innerHTML = '';
         celula.classList.remove('escolhida', 'encontrada');
@@ -233,7 +236,7 @@ celulas.forEach(celula => {
 
 function verificarVitoria() {
     if (palavrasEncontradas === nomesEscolhidos.length) {
-        const mensagemVitoria = document.querySelector('#mensagem-vitoria');
+        mensagemVitoria.style.display = 'block';
         mensagemVitoria.innerHTML = 'Você venceu! Todas as palavras foram encontradas.'
         celulas.forEach(celula => {
             celula.style.pointerEvents = 'none';
