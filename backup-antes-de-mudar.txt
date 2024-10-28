@@ -29,45 +29,22 @@ const celulas = document.querySelectorAll('.celulas');
 
 
 function escolherTema () {
-    return tema[Math.floor(Math.random() * tema.length)];
+    const indice = Math.floor(Math.random() * tema.length);
+    return {
+        palavras: tema[indice],
+        nome: temaNomes[indice]
+    };
 }
 
 let temaEscolhido = escolherTema();
-console.log('Tema escolhido:' ,temaEscolhido);
+console.log('Tema escolhido:' ,temaEscolhido.nome);
 
-function anunciarTema() {
-    switch (temaEscolhido[0]) {
-        case 'marcos':
-            temaDasPalavras.innerHTML = 'Nomes';
-            break;
-        case 'capivara': 
-            temaDasPalavras.innerHTML = 'Animais';
-            break;
-        case 'brasil': 
-            temaDasPalavras.innerHTML = 'Países';
-            break;
-        case 'mesa': 
-            temaDasPalavras.innerHTML = 'Objetos';
-            break;
-        case 'cabeça': 
-            temaDasPalavras.innerHTML = 'Partes do Corpo';
-            break;
-        case 'pizza': 
-            temaDasPalavras.innerHTML = 'Alimentos';
-            break;
-        case 'nike': 
-            temaDasPalavras.innerHTML = 'Marcas famosas';
-            break;
-    }
-}
-
-anunciarTema();
-
+temaDasPalavras.innerHTML = temaEscolhido.nome;
 
 // Função para escolher 4 nomes únicos
 function escolherNomes() {
     const nomesEscolhidos = [];
-    const nomesDisponiveis = [...temaEscolhido];
+    const nomesDisponiveis = [...temaEscolhido.palavras];
 
     while (nomesEscolhidos.length < 4 && nomesDisponiveis.length > 0) {
         let n = Math.floor(Math.random() * nomesDisponiveis.length);
