@@ -79,8 +79,6 @@ function escolherNomes() {
 }
 
 let nomesEscolhidos = escolherNomes();
-console.log(nomesEscolhidos);
-
 let palavrasClasses = {};
 let palavrasEncontradas = 0;
 const palavrasContabilizadas = new Set();
@@ -237,7 +235,6 @@ function verificarVitoria() {
     if (palavrasEncontradas === nomesEscolhidos.length) {
         const mensagemVitoria = document.querySelector('#mensagem-vitoria');
         mensagemVitoria.innerHTML = 'Você venceu! Todas as palavras foram encontradas.'
-        console.log('VOCÊ GANHOU! TODAS AS PALAVRAS FORAM ENCONTRADAS');
         celulas.forEach(celula => {
             celula.style.pointerEvents = 'none';
         })
