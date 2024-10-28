@@ -7,8 +7,6 @@ const partesCorpo = ['cabeça', 'braço', 'perna', 'mão', 'pé', 'olho', 'orelh
 const comidas = ['pizza', 'sushi', 'azeite', 'frango', 'arroz', 'salada', 'pudim', 'bolo', 'crepe', 'sopa', 'coxinha', 'biscoito', 'torta', 'carne', 'peixe', 'maçã', 'kiwi', 'ovos', 'pastel', 'couve', 'batata', 'pão', 'gelatina', 'morango', 'fruta', 'picadinho', 'tapioca', 'cuscuz', 'quibe', 'panqueca'];
 const marcas = ['nike', 'adidas', 'apple', 'ford', 'bmw', 'samsung', 'gucci', 'sony', 'kfc', 'puma', 'nokia', 'pepsi', 'boticario', 'reebok', 'havan', 'microsoft', 'coca', 'hershey', 'loreal', 'volvo'];
 
-
-
 const tema = [nomes, animais, paises, objetos, partesCorpo, comidas];
 const orientacoes = ['vertical', 'horizontal', 'diagonal'];
 
@@ -27,8 +25,8 @@ function escolherTema () {
     return tema[Math.floor(Math.random() * tema.length)];
 }
 
-temaEscolhido = escolherTema();
-console.log(temaEscolhido);
+let temaEscolhido = escolherTema();
+//console.log('Tema escolhido:' ,temaEscolhido);
 
 // Função para escolher 4 nomes únicos
 function escolherNomes() {
@@ -46,6 +44,10 @@ function escolherNomes() {
 
 let nomesEscolhidos = escolherNomes();
 console.log('Nomes escolhidos:', nomesEscolhidos);
+
+const palavrasClasses = {};
+let palavrasEncontradas = 0;
+const palavrasContabilizadas = new Set();
 
 function verticalHorizontalDiagonal() {
     return orientacoes[Math.floor(Math.random() * orientacoes.length)];
@@ -111,8 +113,10 @@ function inserirPalavra(nome) {
         }
     }
 
+    palavrasClasses[nome.join('')] = coordenadas;
     coordenadas.forEach((coordenada, letraIndice) => {
         celulas[coordenada].innerHTML = nome[letraIndice]; // Adiciona a letra na célula
+        celulas[coordenada].classList.add(`palavra-${nome.join('')}`);
     });
 }
 
@@ -120,3 +124,64 @@ function inserirPalavra(nome) {
 nomesEscolhidos.forEach(nome => {
     inserirPalavra(nome);
 });
+
+function verificarPalavraEncontrada(nome) {
+    const coordenadas = palavrasClasses[nome];
+    return coordenadas.every(coordenada => celulas[coordenada].classList.contains('escolhida'));
+}
+
+celulas.forEach(celula => {
+    celula.addEventListener('click', () => {
+        celula.classList.add('escolhida');
+        
+        for (const palavra in palavrasClasses) {
+            if (verificarPalavraEncontrada(palavra) && !palavrasContabilizadas.has(palavra)) {
+                palavrasClasses[palavra].forEach(coordenada => {
+                    celulas[coordenada].classList.add('encontrada');
+                });
+                palavrasEncontradas++;
+                palavrasContabilizadas.add(palavra); 
+                verificarVitoria();
+            }
+        }
+
+        setTimeout(() => {
+            celula.classList.remove('escolhida');
+        }, 12000);
+    })
+})
+
+console.log(palavrasEncontradas);
+console.log(nomesEscolhidos.length);
+
+function exibirModal() {
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed';
+    modal.style.top = '50%';
+    modal.style.left = '50%';
+    modal.style.transform = 'translate(-50%, -50%)';
+    modal.style.backgroundColor = 'white';
+    modal.style.padding = '20px';
+    modal.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+    modal.style.zIndex = 1000;
+
+    const mensagem = document.createElement('p');
+    mensagem.textContent = 'Você ganhou! Todas as palavras foram encontradas!';
+    modal.appendChild(mensagem);
+
+    const botaoFechar = document.createElement('button');
+    botaoFechar.textContent = 'Fechar';
+    botaoFechar.onclick = () => {
+        document.body.removeChild(modal);
+    };
+    modal.appendChild(botaoFechar);
+
+    document.body.appendChild(modal);
+}
+
+function verificarVitoria() {
+    if (palavrasEncontradas === nomesEscolhidos.length) {
+        console.log('VOCÊ GANHOU! TODAS AS PALAVRAS FORAM ENCONTRADAS');
+        exibirModal();
+    }
+}

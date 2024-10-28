@@ -31,3 +31,11 @@ body {
     text-transform: uppercase;
     font-size: 2em;
 }
+
+.escolhida {
+    background-color: #fde047;
+}
+
+.encontrada {
+    background-color: #22c55e;
+}

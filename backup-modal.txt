@@ -1,0 +1,24 @@
+function exibirModal() {
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed';
+    modal.style.top = '50%';
+    modal.style.left = '50%';
+    modal.style.transform = 'translate(-50%, -50%)';
+    modal.style.backgroundColor = 'white';
+    modal.style.padding = '20px';
+    modal.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+    modal.style.zIndex = 1000;
+
+    const mensagem = document.createElement('p');
+    mensagem.textContent = 'Você ganhou! Todas as palavras foram encontradas!';
+    modal.appendChild(mensagem);
+
+    const botaoFechar = document.createElement('button');
+    botaoFechar.textContent = 'Fechar';
+    botaoFechar.onclick = () => {
+        document.body.removeChild(modal);
+    };
+    modal.appendChild(botaoFechar);
+
+    document.body.appendChild(modal);
+}
