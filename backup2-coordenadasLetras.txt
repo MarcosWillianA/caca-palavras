@@ -1,0 +1,54 @@
+function coordenadasLetras() {
+    const coordenadas = [];
+    switch (orientacaoLetras) {
+        case 'vertical':
+            for (let indice = 0; indice < nomeEscolhido.length; indice++) {
+                const letra = nomeEscolhido[indice];
+                const celulasCertas = indice * 12 + posicaoEscolhida; // Obter as coordenadas
+                coordenadas.push(celulasCertas);
+                console.log(celulasCertas);
+                console.log(coordenadas);
+                
+                if (celulasCertas > 143) {
+                    escolherPosicao(); // Chama a função caso a coordenada seja maior que 143
+                    return; // Para a execução da função coordenadasLetras
+                }
+                
+                celulas[celulasCertas].innerHTML = letra; // Adiciona a letra se estiver dentro do limite
+                console.log('Letra acrescentada!');
+            }
+        break;
+
+        case 'horizontal': 
+            for (let indice = 0; indice < nomeEscolhido.length; indice++) {
+                const letra = nomeEscolhido[indice];
+                const celulasCertas = indice + 1 + posicaoEscolhida;
+                console.log(celulasCertas);
+
+                if (celulasCertas % 12 === 0) {
+                    escolherPosicao();
+                    return;
+                }
+
+                celulas[celulasCertas].innerHTML = letra;
+                console.log('Letra acrescentada');
+            }
+        break;
+
+        case 'diagonal':
+            for (let indice = 0; indice < nomeEscolhido.length; indice++) {
+                const letra = nomeEscolhido[indice];
+                const celulasCertas = indice * 13 + posicaoEscolhida; 
+                console.log(celulasCertas);
+
+                if (celulasCertas > 143 || celulasCertas % 12 === 0) {
+                    escolherPosicao();
+                    return;
+                }
+
+                celulas[celulasCertas].innerHTML = letra;
+                console.log('Letra acrescentada');
+            }
+        break;
+    }
+}

@@ -1,6 +1,6 @@
 const container = document.querySelector('#container');
 const nomes = ['marcos', 'rosângela', 'alcilene', 'suzana', 'ângela'];
-const orientacao = ['vertical', 'horizontal'];
+const orientacao = ['vertical', 'horizontal', 'diagonal'];
 
 function criarGrid () {
     for (i = 0; i < 144; i++) {
@@ -69,12 +69,15 @@ console.log(espacoLivre);
 */
 
 function coordenadasLetras() {
+    const coordenadas = [];
     switch (orientacaoLetras) {
         case 'vertical':
             for (let indice = 0; indice < nomeEscolhido.length; indice++) {
                 const letra = nomeEscolhido[indice];
                 const celulasCertas = indice * 12 + posicaoEscolhida; // Obter as coordenadas
+                coordenadas.push(celulasCertas);
                 console.log(celulasCertas);
+                console.log(coordenadas);
                 
                 if (celulasCertas > 143) {
                     escolherPosicao(); // Chama a função caso a coordenada seja maior que 143
@@ -100,10 +103,25 @@ function coordenadasLetras() {
                 celulas[celulasCertas].innerHTML = letra;
                 console.log('Letra acrescentada');
             }
-    }
-    
-}
+        break;
 
+        case 'diagonal':
+            for (let indice = 0; indice < nomeEscolhido.length; indice++) {
+                const letra = nomeEscolhido[indice];
+                const celulasCertas = indice * 13 + posicaoEscolhida; 
+                console.log(celulasCertas);
+
+                if (celulasCertas > 143 || celulasCertas % 12 === 0) {
+                    escolherPosicao();
+                    return;
+                }
+
+                celulas[celulasCertas].innerHTML = letra;
+                console.log('Letra acrescentada');
+            }
+        break;
+    }
+}
 
 celulasCertas = coordenadasLetras();
 
@@ -122,4 +140,5 @@ celulasCertas = coordenadasLetras();
     - OUTRA IDEIA: SE AS COORDENADAS DE CADA PALAVRA FICAREM ARMAZENADAS NUM ARRAY, 
     ENTÃO É POSSÍVEL VERIFICAR SE ELAS TEM A MESMA LETRA 
     E então poderem ficar uma por cima da outra
+    - INSIGHT QUE TIVE SEXTA-FEIRA: O cálculo da diagonal e "antidiagonal". + 13 e + 11 respectivamente
 */
